@@ -1,0 +1,81 @@
+<!doctype html>
+<!--[if lt IE 10]> <html class="lt-ie10 no-js"  lang=""> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Open AQ</title>
+
+    <!-- build:css assets/styles/vendor.css -->
+    <!-- endbuild -->
+
+    <!-- build:css assets/styles/main.css -->
+    <link rel="stylesheet" href="assets/styles/main.css">
+    <!-- endbuild -->
+    <link rel="author" type="text/plain" href="humans.txt" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <div id="nocando">
+        <h1>No can do!</h1>
+        <p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      </div>
+    <![endif]-->
+
+    <div id="site-canvas">
+      <!-- Content goes inside #site-canvas -->
+      <div class="header">
+        A Comparison of Beijing and Delhi Air Quality
+      </div>
+      <div class="chart"></div>
+      <div class="details">
+        <detail>
+          <p>The graph above is based on data aggregated from PM2.5 mass concentration data from the public sources listed below. The x-axis shows the local time for all station locations. For data access, please visit:</p>
+
+          <p>Beijing (Datapoints are updated approximately every hour and data represents hourly average):
+            <ul>
+              <li>US Embassy: <a href="#">Source</a> | <a href="#">JSON</a></li>
+            </ul>
+          </p>
+
+          <p>New Delhi (Datapoints are updated every approximately every 15 minutes and data may or may not represent 15 minute average):
+            <ul>
+              <li>Mandir Marg: <a href="#">Source</a> | <a href="#">JSON</a></li>
+              <li>Anand Vihar: <a href="#">Source</a> | <a href="#">JSON</a></li>
+              <li>RK Puram: <a href="#">Source</a> | <a href="#">JSON</a></li>
+              <li>Punjabi Bagh: <a href="#">Source</a> | <a href="#">JSON</a></li>
+            </ul>
+          </p>
+        </detail>
+        <detail>
+          <p><a href="https://openaq.org">OpenAQ</a> is an open, crowd-sourced platform that seeks to provide programmatic access to air quality (AQ) data from stations worldwide. Which stations OpenAQ reports data from depends on users like you. If you are interested in adding an air quality station to this platform, please contact us at info@openaq.org for more information.</p>
+
+          <p>All the data for this visualization is being pulled live from the <a href="https://api.openaq.org">OpenAQ platform</a> which allows you to build whathever you want on top of it. It's all open-source so you can see the code the runs that platform and even make changes yourself at <a href="https://github.com/openaq/openaq-api">the GitHub repo</a>.</p>
+        </detail>
+      </div>
+      <!-- Content goes inside #site-canvas -->
+    </div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-XXXXX-X');ga('send','pageview');
+    </script>
+
+    <!-- build:js assets/scripts/vendor.js -->
+    <script src="assets/scripts/vendor.js"></script>
+    <!-- endbuild -->
+    <!-- build:js assets/scripts/bundle.js -->
+    <script src="assets/scripts/bundle.js"></script>
+    <!-- endbuild -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.3/d3-tip.min.js"></script>
+</body>
+</html>

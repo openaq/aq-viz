@@ -1,0 +1,45 @@
+// IE < 10
+// Don't delete.
+.lt-ie10 {
+  #site-canvas {
+    display: none;
+  }
+  #nocando {
+    margin: 200px auto;
+    padding: 32px;
+    max-width: 440px;
+    background: #fff;
+    h1 {
+      font-size: 24px;
+      line-height: 1.1;
+      margin-bottom: 32px;
+    }
+  }
+}
+
+// Scss starts here!
+body, html {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+
+.header {
+  @include span-columns(12);
+  padding: 14px;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.details {
+  @include outer-container;
+  detail { @include span-columns(6); }
+
+  padding: 2rem;
+  font-size: 1.2rem;
+  font-weight: 300;
+
+  p:not(:first-child) {
+    padding-top: 8px;
+  }
+}
