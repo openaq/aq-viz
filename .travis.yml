@@ -1,12 +1,13 @@
+sudo: false
 language: node_js
 node_js:
   - "0.12"
 
 env:
   global:
-  - GH_REF=github.com/developmentseed/project-seed.git
+  - GH_REF=github.com/openaq/aq-viz.git
   - DEPLOY_BRANCH=master
-  - secure: "olNurvzwF8xVfzLeeCaN/PUNGNoUozxHFq8XI4ypOiKzsJTUzX85sLDcnI6qqNOtUCSUbqV+kxmnme0GlEz8I5kpMkMVOBhByjXEFKJ04tC8qhGQlidD8j63pFkCelYraf2raGZn/rr1OMaZOBcTzibOq0E21ABgGxRgrVtKQTcTHCxzcaoZSZfVGGfkz+airEtRXHDGFmBIQc1Fo5XNa+Yh20AEnfc60PAaOPJgXRS+hl0ObMbyLdL55ogFp6QtZw4DYIfcUB841rqhisWwaOB+xSq4zLgPkNI2NBG5kl/lUuGsMcZqcP75o6Gr+T262UKI07NHtzZVddV3YMBOkBvBCs3iLUpKe4EsdC4teFtX3t+I4KaLqY7ajuy152lew9KUYYIt4zG8GhsWJCZ49p/UGXFwaEbb6jRKS7Um5cGjbajxwQJpSx2CxQc0tbU6Y2cX6cXmd2RztQ+psDloAXuGVZmcBFAitslhV2m8b5hr36OgI+7ozmW9MIwni5vrDGf7ZsPAxEcdr4tIMUlrj8zdEO5DX+E5nZPGXopo1vV7ZZ/wLu6KRETtHJLVs10azMMqO8y9l74ICb9WhC9KEJ73mKEPUXHLf8E132W1JwZGQSgJsoUWzMKc8qiwGEHkG++3oIR/PG7ZmfdACwOwDuzRKtTNx2VMIPk+kYBoCI0="
+  - secure: "lpx9wBQSyHOfRlA0WTBolmBz6AqcoUISVKUkG5gSqBJJMYLpp83KaVuIog9bWJXU5HQc4QXswujPdjh2muCUbLESzyDKUlJ7PucH1rfndxX6c50F+hIHjl3jzBe8LkK2tnvqp7i0ceCq1lgVrei5Dc54dy5OIjulxYSPBF9bRJ/Rzsdsaa1/JBC/V95I17fvBKWg/x0fq9Qep0F2b0KNdnvAivpb4H2hEnOENX5cCyWn9Bd3mXmtDtUY3vuYis0mjpVdwo5c6hOmAuGRL0OMKYGWvAjn3VY8vmet4KJCUlNnJiLtfpjxEMd32gyBg9LXVOrbBsSg39OwhPLcbjN1swNHDGqWJy6iLUTPRLrgGqV8XQmYjR+1ck3LXaFgs5oyN/r0zaw12d+IDZZAKTPoLrk/9poR9jEsqugOxqVh+4t9Qbj6f4mbhZNqgY97XQxYmkHI24cpnNRX0WH25MsvgvrBot0yoyz1yq22+Wsb2AkM7RQAMdhqsquyR9JcH1rttBwtI99/p+7QxHAyrTieuciKajwvBx+zXA4pivHsFVZ8Ton6Lu7/wlKZINHrCmrzzArp8FMAbcQ9p9XF0ykX9BNAnFJqonXT8QqPghFl5/P33yNKu5515LtgpwwQsJ4PjTGlTg7jYstY48k+RMyimr2d/CqQUKh0FFWtFHMj/9A="
 
 cache:
   directories:
@@ -18,10 +19,12 @@ before_install:
 
 before_script:
 - ./.build_scripts/lint.sh
-- npm test
 
 script:
+- npm test
 - npm run build
 
-after_success:
-- ./.build_scripts/deploy.sh
+deploy:
+- provider: script
+- skip_cleanup: true
+- script: .build_scripts/deploy.sh
