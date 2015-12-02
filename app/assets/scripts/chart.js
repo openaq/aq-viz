@@ -40,7 +40,6 @@ var createScales = function () {
   // Get global extents
   // X Domain
   var xMin, xMax;
-  console.log(dataset);
   xMin = xMax = dataset[d3.keys(dataset)[0]][0].date;
   _.forEach(dataset, function (location) {
     _.forEach(location, function (m) {
@@ -153,7 +152,7 @@ var drawData = function () {
     var country = 'india';
     if (location[0].location === 'Beijing US Embassy') {
       country = 'china';
-    } else if (location[0].location === 'Tolgoit') {
+    } else if (location[0].location === 'Tolgoit' || location[0].location === 'Baruun 4 zam') {
       country = 'mongolia';
     }
 
@@ -171,9 +170,9 @@ var drawData = function () {
           .attr('cy', function (d) { return y(d.value); })
           .classed(country, true)
           .classed('point', true)
-          .attr('r', 2)
-          .on('mouseover', tip.show)
-          .on('mouseout', tip.hide);
+          .attr('r', 2);
+          // .on('mouseover', tip.show)
+          // .on('mouseout', tip.hide);
   });
 };
 
@@ -183,7 +182,6 @@ var formatDataset = function () {
     _.forEach(measurements, function (m) {
       m.date = moment(m.date.utc).subtract(moment.parseZone(m.date.local).zone(), 'minutes');
       m.value = +m.value;
-      console.log(m);
     });
   });
 };
@@ -204,15 +202,15 @@ var setupChart = function () {
                     'translate(' + margin.left + ',' + margin.top + ')');
 
   // Set up tooltip
-  tip = d3.tip()
-    .attr('class', 'd3-tip')
-    .offset([-10, 0])
-    .html(function (d) {
-      var html = '<p><strong>Location:</strong> ' + d.location + '</p><p><strong>Date:</strong> ' + moment.utc(d.date).format('Do MMM, YYYY, H:mm').toString() + '</p>' +
-        '<p><strong>PM 2.5:</strong> ' + d.value + ' µg/m³</p>';
-      return html;
-    });
-  svg.call(tip);
+  // tip = d3.tip()
+  //   .attr('class', 'd3-tip')
+  //   .offset([-10, 0])
+  //   .html(function (d) {
+  //     var html = '<p><strong>Location:</strong> ' + d.location + '</p><p><strong>Date:</strong> ' + moment.utc(d.date).format('Do MMM, YYYY, H:mm').toString() + '</p>' +
+  //       '<p><strong>PM 2.5:</strong> ' + d.value + ' µg/m³</p>';
+  //     return html;
+  //   });
+  // svg.call(tip);
 };
 
 var init = function () {
@@ -242,7 +240,8 @@ var init = function () {
       getData('Beijing US Embassy'),
       getData('Mandir Marg'),
       getData('Punjabi Bagh'),
-      getData('Tolgoit')
+      getData('Tolgoit'),
+      getData('Baruun 4 zam')
     ],
     function (err, results) {
       if (err) {
