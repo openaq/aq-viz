@@ -1,20 +1,17 @@
 {
-  "name": "project-seed",
+  "name": "aq-viz",
   "version": "0.1.0",
-  "description": "A basic project starting template.",
+  "description": "Simple visualization of air quality data from OpenAQ.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/developmentseed/project-seed.git"
+    "url": "https://github.com/openaq/aq-viz.git"
   },
-  "author": {
-    "name": "Development Seed",
-    "url": "https://developmentseed.org"
-  },
-  "license": "BSD",
+  "author": "Joe Flasher",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/developmentseed/project-seed/issues"
+    "url": "https://github.com/openaq/aq-viz/issues"
   },
-  "homepage": "https://github.com/developmentseed/project-seed",
+  "homepage": "https://openaq.org",
   "scripts": {
     "postinstall": "[ -f app/assets/scripts/config/local.js ] || echo 'module.exports = {};' > app/assets/scripts/config/local.js",
     "serve": "gulp serve",
