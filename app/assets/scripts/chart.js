@@ -5,6 +5,7 @@ var d3 = require('d3');
 var _ = require('lodash');
 var async = require('async');
 var moment = require('moment');
+var request = require('request');
 
 var width;
 var height = 400;
@@ -39,6 +40,7 @@ var createScales = function () {
   // Get global extents
   // X Domain
   var xMin, xMax;
+  console.log(dataset);
   xMin = xMax = dataset[d3.keys(dataset)[0]][0].date;
   _.forEach(dataset, function (location) {
     _.forEach(location, function (m) {
@@ -64,7 +66,7 @@ var createScales = function () {
   });
 
   x.domain([xMin, xMax]);
-  y.domain([yMin, yMax]);
+  y.domain([yMin, yMax * 1.1]);
 };
 
 var createAxes = function () {
@@ -112,31 +114,38 @@ var drawData = function () {
 
   // Legend
   d3.select('svg').selectAll('.circle-legend')
-     .data([{country: 'china', y: 20}, {country: 'india', y: 40}])
-     .enter()
-     .append('circle')
-     .attr('fill-opacity', '0')
-     .attr('stroke', function (d) {
-      return d.country === 'china' ? 'red' : 'orange';
-     })
-     .attr('cx', function (d) {
-      return width + margin.left + margin.right - 70;
-     })
-     .attr('cy', function (d) { return d.y; })
-     .attr('r', 6);
+    .data([{country: 'china', y: 20}, {country: 'india', y: 50}, {country: 'mongolia', y: 80}])
+    .enter()
+    .append('circle')
+    .attr('fill-opacity', '0')
+    .attr('stroke', function (d) {
+      switch (d.country) {
+        case 'china':
+          return 'red';
+        case 'india':
+          return 'orange';
+        case 'mongolia':
+          return 'blue';
+      }
+    })
+    .attr('cx', function (d) {
+      return width + margin.left + margin.right - 110;
+    })
+    .attr('cy', function (d) { return d.y; })
+    .attr('r', 10);
 
   d3.select('svg').selectAll('.circle-text')
-    .data([{ text: 'Beijing', y: 20}, { text: 'Delhi', y: 40}])
+    .data([{ text: 'Beijing', y: 20}, { text: 'Delhi', y: 50}, { text: 'Ulaanbaatar', y: 80}])
     .enter()
     .append('text')
     .classed('circle-text', true)
-    .attr('x', function(d) {
-     return width + margin.left + margin.right - 60;
+    .attr('x', function (d) {
+      return width + margin.left + margin.right - 96;
     })
-    .attr('y', function(d) { return d.y + 6; })
-    .attr('text-anchor','beginning')
-    .style('fill','#777')
-    .text(function(d){ return d.text; });
+    .attr('y', function (d) { return d.y + 6; })
+    .attr('text-anchor', 'beginning')
+    .style('fill', '#777')
+    .text(function (d) { return d.text; });
 
   // Plot it
   _.forEach(dataset, function (location) {
@@ -144,6 +153,8 @@ var drawData = function () {
     var country = 'india';
     if (location[0].location === 'Beijing US Embassy') {
       country = 'china';
+    } else if (location[0].location === 'Tolgoit') {
+      country = 'mongolia';
     }
 
     // Lines
@@ -160,32 +171,19 @@ var drawData = function () {
           .attr('cy', function (d) { return y(d.value); })
           .classed(country, true)
           .classed('point', true)
-          .attr('r', 6)
+          .attr('r', 2)
           .on('mouseover', tip.show)
           .on('mouseout', tip.hide);
   });
 };
 
 var formatDataset = function () {
-  // Convert to local time
-  var dateForLocation = function (m) {
-    var date = moment.utc(m.date);
-    if (m.city === 'Beijing') {
-      date = date.add(8, 'hour');
-    } else if (m.city === 'Delhi') {
-      date = date.add(5.5, 'hour');
-    } else {
-      console.error('invalid city');
-    }
-
-    return date;
-  };
-
   // A bit of data formatting
   _.forEach(dataset, function (measurements) {
     _.forEach(measurements, function (m) {
-      m.date = dateForLocation(m);
+      m.date = moment(m.date.utc).subtract(moment.parseZone(m.date.local).zone(), 'minutes');
       m.value = +m.value;
+      console.log(m);
     });
   });
 };
@@ -210,8 +208,8 @@ var setupChart = function () {
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function (d) {
-      var html = '<p><strong>Date:</strong> ' + moment(d.date).format('Do MMM, YYYY, H:mm').toString() + '</p>' +
-        '<p><strong>PM 2.5:</strong> ' + d.value + ' (µg/m³)</p>';
+      var html = '<p><strong>Location:</strong> ' + d.location + '</p><p><strong>Date:</strong> ' + moment.utc(d.date).format('Do MMM, YYYY, H:mm').toString() + '</p>' +
+        '<p><strong>PM 2.5:</strong> ' + d.value + ' µg/m³</p>';
       return html;
     });
   svg.call(tip);
@@ -221,10 +219,17 @@ var init = function () {
   // Get data function
   var getData = function (location) {
     return function (done) {
-      var url = config.baseURL + 'measurements?parameter=pm25&date_from=2015-07-17&date_to=2015-07-20&location=' + encodeURIComponent(location);
-      d3.json(url, function (err, json) {
+      // Get 2 days back
+      var date = moment().utc().subtract(2, 'days').format('YYYY-MM-DD');
+      var url = config.baseURL + 'measurements?parameter=pm25&date_from=' + date + '&location=' + encodeURIComponent(location);
+      request(url, function (err, response, body) {
         if (err) {
           done(err);
+        }
+        try {
+          var json = JSON.parse(body);
+        } catch (e) {
+          done(e);
         }
         dataset[location] = json.results;
         done(null);
@@ -235,7 +240,9 @@ var init = function () {
   async.parallel(
     [
       getData('Beijing US Embassy'),
-      getData('Mandir Marg')
+      getData('Mandir Marg'),
+      getData('Punjabi Bagh'),
+      getData('Tolgoit')
     ],
     function (err, results) {
       if (err) {

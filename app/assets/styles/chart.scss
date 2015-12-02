@@ -26,6 +26,10 @@
   &.india {
     stroke: orange;
   }
+
+  &.mongolia {
+    stroke: blue;
+  }
 }
 
 .point {
@@ -38,13 +42,17 @@
   &.india {
     stroke: orange;
   }
+
+  &.mongolia {
+    stroke: blue;
+  }
 }
 
 .d3-tip {
   line-height: 1;
   font-weight: bold;
   padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
   border-radius: 2px;
 }
