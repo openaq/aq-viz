@@ -19,16 +19,21 @@
     "lint": "semistandard app/assets/scripts/**/*.js",
     "test": "echo NO TESTS YET"
   },
+  "browserify-shim": {
+    "d3js": "global:d3"
+  },
   "browserify": {
     "transform": [
       "require-globify",
-      "envify"
+      "envify",
+      "browserify-shim"
     ]
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.0",
     "browser-sync": "^2.7.6",
     "browserify": "^10.2.3",
+    "browserify-shim": "^3.8.11",
     "del": "^1.2.0",
     "envify": "^3.4.0",
     "gulp": "^3.9.0",
@@ -64,7 +69,6 @@
   },
   "dependencies": {
     "async": "^1.3.0",
-    "d3": "^3.5.6",
     "lodash": "^3.10.0",
     "moment": "^2.10.3",
     "request": "^2.67.0"
