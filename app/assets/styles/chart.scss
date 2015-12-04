@@ -50,11 +50,18 @@
 
 .d3-tip {
   line-height: 1;
-  font-weight: bold;
   padding: 12px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba($tertiary-color, 0.95);
   color: #fff;
-  border-radius: 2px;
+  border-radius: 3px;
+
+  p {
+    padding: 3px 0;
+  }
+
+  strong {
+    font-weight: 400;
+  }
 }
 
 /* Creates a small triangle extender for the tooltip */

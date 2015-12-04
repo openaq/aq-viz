@@ -10,8 +10,15 @@
 @import "reset";
 @import "normalize-opentype";
 
+// Vars
+$base-color: #C75233;
+$primary-color: #364958;
+$secondary-color: #C9E4CA;
+$tertiary-color: #55828B;
+$base-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 // Google Fonts
-@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 
 @import "base";
 @import "chart";
