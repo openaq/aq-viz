@@ -1,0 +1,64 @@
+<!doctype html>
+<!--[if lt IE 10]> <html class="lt-ie10 no-js"  lang=""> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Open AQ</title>
+
+    
+
+    <link rel="stylesheet" href="assets/styles/main-682d0b68dd.css">
+    <link rel="author" type="text/plain" href="humans.txt" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.7/d3-tip.js"></script>
+
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <div id="nocando">
+        <h1>No can do!</h1>
+        <p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      </div>
+    <![endif]-->
+
+    <div id="site-canvas">
+      <!-- Content goes inside #site-canvas -->
+      <div class="header">
+        A Real-Time Comparison of Air Quality in Three Cities via OpenAQ (openaq.org/aq-viz)
+      </div>
+      <div class="chart"></div>
+      <div class="details">
+        <detail>
+          <p><strong>About this graph:</strong> The graph above shows the last one hundred PM2.5 mass concentration values aggregated onto <a href="https://openaq.org">OpenAQ</a> from public sources and pulled live from the <a href="https://api.openaq.org">OpenAQ API</a>. The x-axis shows the local time for all station locations. Hover over datapoints to see the specific station locations within each city.</p>
+          <p>Want to access, copy and/or improve the code for this visualization? Do it <a href="https://github.com/openaq/aq-viz"> here</a>, it's all open.</p>
+        </detail>
+        <detail>
+          <p><strong>About OpenAQ:</strong> We are a community of scientists, software developers journalists and everyone in between, working to build the first open air quality data hub for the world. We passionately believe our community and the platform it is building will empower the public to do amazing things. Go <a href="https://medium.com/@openaq/the-mission-of-openaq-cb159084beeb#.5sj96s2p6">here</a> to learn more about our mission, <a href="https://medium.com/@openaq/filling-the-air-quality-data-gap-10e0a494517#.zemj5dmju>here">here</a> to find out more about the global air quality data gap, and <a href=https://medium.com/@openaq/where-does-openaq-data-come-from-a5cf9f3a5c85#.hknbt5ovi>here</a> to find out more about the sources on our platform.
+          <p>See the code, see the sources, build on top of it or even improve it yourself at <a href="https://github.com/openaq/openaq-api">the GitHub repo</a>.</p>
+        </detail>
+      </div>
+      <div class="footer">
+        Made with <span class="heart">♥</span> by <a href="http://developmentseed.org">Development Seed</a> and the OpenAQ team.
+      </div>
+      <!-- Content goes inside #site-canvas -->
+    </div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-66787377-3');ga('send','pageview');
+    </script>
+
+    <script src="assets/scripts/vendor-34ee5712d6.js"></script>
+    <script src="assets/scripts/bundle-bb0785c877.js"></script>
+</body>
+</html>
