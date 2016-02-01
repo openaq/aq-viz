@@ -229,7 +229,9 @@ var init = function () {
         } catch (e) {
           done(e);
         }
-        dataset[location] = json.results;
+        if (json.meta.found !== 0) {
+          dataset[location] = json.results;
+        }
         done(null);
       });
     };
