@@ -186,6 +186,15 @@ var formatDataset = function () {
   });
 };
 
+var removeInvalid = function () {
+  // remove values like -999
+  _.forEach(dataset, function (measurements) {
+    _.remove(measurements, function (m) {
+      return m.value < 0;
+    });
+  });
+};
+
 var setupChart = function () {
   // For responsiveness
   width = d3.select('.chart').node().getBoundingClientRect().width;
@@ -253,6 +262,7 @@ var init = function () {
       // Plot everything
       setupChart();
       formatDataset();
+      removeInvalid();
       createScales();
       createAxes();
       drawData();
