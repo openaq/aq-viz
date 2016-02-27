@@ -219,7 +219,7 @@ var init = function () {
     return function (done) {
       // Get 2 days back
       var date = moment().utc().subtract(2, 'days').format('YYYY-MM-DD');
-      var url = config.baseURL + 'measurements?parameter=pm25&date_from=' + date + '&location=' + encodeURIComponent(location);
+      var url = config.baseURL + 'measurements?parameter=pm25&value_from=0&date_from=' + date + '&location=' + encodeURIComponent(location);
       request(url, function (err, response, body) {
         if (err) {
           done(err);
