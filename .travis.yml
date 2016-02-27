@@ -1,30 +1,30 @@
 sudo: false
 language: node_js
 node_js:
-  - "0.12"
-
+- '0.12'
 env:
   global:
-  - GH_REF=github.com/openaq/aq-viz.git
   - DEPLOY_BRANCH=master
-  - secure: "lpx9wBQSyHOfRlA0WTBolmBz6AqcoUISVKUkG5gSqBJJMYLpp83KaVuIog9bWJXU5HQc4QXswujPdjh2muCUbLESzyDKUlJ7PucH1rfndxX6c50F+hIHjl3jzBe8LkK2tnvqp7i0ceCq1lgVrei5Dc54dy5OIjulxYSPBF9bRJ/Rzsdsaa1/JBC/V95I17fvBKWg/x0fq9Qep0F2b0KNdnvAivpb4H2hEnOENX5cCyWn9Bd3mXmtDtUY3vuYis0mjpVdwo5c6hOmAuGRL0OMKYGWvAjn3VY8vmet4KJCUlNnJiLtfpjxEMd32gyBg9LXVOrbBsSg39OwhPLcbjN1swNHDGqWJy6iLUTPRLrgGqV8XQmYjR+1ck3LXaFgs5oyN/r0zaw12d+IDZZAKTPoLrk/9poR9jEsqugOxqVh+4t9Qbj6f4mbhZNqgY97XQxYmkHI24cpnNRX0WH25MsvgvrBot0yoyz1yq22+Wsb2AkM7RQAMdhqsquyR9JcH1rttBwtI99/p+7QxHAyrTieuciKajwvBx+zXA4pivHsFVZ8Ton6Lu7/wlKZINHrCmrzzArp8FMAbcQ9p9XF0ykX9BNAnFJqonXT8QqPghFl5/P33yNKu5515LtgpwwQsJ4PjTGlTg7jYstY48k+RMyimr2d/CqQUKh0FFWtFHMj/9A="
-
 cache:
   directories:
-    - node_modules
-
+  - node_modules
 before_install:
-- chmod +x ./.build_scripts/deploy.sh
 - chmod +x ./.build_scripts/lint.sh
-
 before_script:
-- ./.build_scripts/lint.sh
-
+- "./.build_scripts/lint.sh"
 script:
 - npm test
 - npm run build
-
 deploy:
-  provider: script
+  provider: s3
   skip_cleanup: true
-  script: .build_scripts/deploy.sh
+  access_key_id: AKIAIHACHLPCT2PIL4TA
+  secret_access_key:
+    secure: NfTKYFZe8Yk1EcGTWT4qcljdbSJ3LEqEkWbehChFSaJgKp64mMkZ9C9ur0DKtqm9C4Ruw9KxRV7uYRQvxqdyqg+39IYP5ZeoR1OPnymghRxWDONkWs+2257uhzw4gKYXygWmfRUMTTpQ5N0bM4Q7xWwzwPXIr67xnM9XsXjnFrqB9zum1SjpybjJC+zS4ecKoco1bFvlBf04RfC2smW7pJNDoRy34hA+rt39mayzPhELuqC5k4W/M2ymqpBDFJxnca70zHUczJzI1enzLciNM8lPPRAVCA7yNf/xJBcWK9prhGfJtoT5Cb0UYOSeOPb38QTCa+mmc43OK/62fpzyJUjrvFZNU+Yr1+IsBX6QBC6S7Acb/obTY2sjADR/GrywruCclPbp71Gx+wu8Q5tk4UGlHhyNi7k5zEecNK8M2kdAfjPVHRVN9CJXMhlJLT+6sM3xFAvWRt9csagP8ZeU5iTIlxWXbzoEvrbNNOS3bPH0ulWnMcfer5W5oL6o/kNkXrxQnfAf4pHLyqGQas4X6/QBR100ZwtRl45U0m8n1jnB3eqT8gCAkCIg/xwxg0HwZJCHPsk9MdXMh0qB+zxagrZLjKGorXbRbCnNQlwZpAoG1geNIabyBESo2VVTl/5vdMyDPycObZkWxw9YuNMztq7PKrpnswu/FEO6qV5MJv8=
+  bucket: labs.openaq.org
+  local-dir: dist
+  upload-dir: aq-viz
+  acl: public_read
+  on:
+    repo: openaq/aq-viz
+    branch: ${DEPLOY_BRANCH}
