@@ -206,7 +206,7 @@ var setupChart = function () {
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function (d) {
-      var html = '<p><strong>Location:</strong> ' + d.location + '</p><p><strong>Date:</strong> ' + moment.utc(d.date).format('Do MMM, YYYY, H:mm').toString() + '</p>' +
+      var html = '<p><strong>Location:</strong> ' + d.location + '</p><p><strong>Date:</strong> ' + moment.utc(d.date).format('Do MMM, YYYY, H:mm a').toString() + '</p>' +
         '<p><strong>PM 2.5:</strong> ' + d.value + ' µg/m³</p>';
       return html;
     });
